@@ -1,14 +1,28 @@
 <script>
+
 export default {
   data() {
     return {
+      count:0,
       title: "La mia prima app con Vite",
-      image: "sfondo-vite.jpg",
+      image: [
+        {
+          indirizzo: "sfondo-vite.jpg",
+        },
+        {
+          indirizzo: "sfondo-vite-2.jpg",
+        },
+        {
+          indirizzo: "sfondo-vite-3.jpg",
+        },
+      ],      
     }
   },
   methods:{ 
     createUrlImage(imageName) {
-        return new URL(`../assets/img/${imageName}`, import.meta.url).href;
+      console.log(imageName.indirizzo);
+      console.log(this.image.length);
+      return new URL(`../assets/img/${imageName.indirizzo}`, import.meta.url).href;
     },
   },
 };
@@ -16,7 +30,9 @@ export default {
 
 <template>
     <h1>{{ title }}</h1>
-    <img :src="createUrlImage(image)" />
+    <img 
+    @click="count < image.length-1 ? count++ : count=0"
+    :src="createUrlImage(image[count])" />
 </template>
 
 <style>
